@@ -1,0 +1,7 @@
+{
+  "name": "milkyway",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
