@@ -1,0 +1,30 @@
+<div class="height-100 flex-column background-color">
+   <div class="image-background-color justify-center align-items-end flex-1">
+    <ion-img src="assets/images/onboarding/people.svg"></ion-img>
+   </div>
+
+   <div class="flex-1 flex-column">
+     <div class="flex-1">
+       <div class="ion-padding ion-margin">
+         <ion-text class="very-big-font bold" color="light">
+           {{ 'Stay connected with anyone, chat anonymously!' }}
+         </ion-text>
+       </div>
+  
+       <div class="ion-padding ion-margin">
+        <ion-text class="small-font" color="light">
+          {{ 'Reveal others and protect yourself!' }}
+        </ion-text>
+      </div>
+     </div>
+
+    <div class="ion-text-center high-margin-bottom high-padding-bottom">
+      <ion-button class="ion-margin-start ion-margin-end" color="light" expand="block" shape="round" (click)="goToNextSlide()">
+        <ion-text class="ion-padding-top ion-padding-bottom no-text-style">{{ 'Get Started' }}</ion-text>
+      </ion-button>
+    </div>
+   </div>
+</div>
+
+
+

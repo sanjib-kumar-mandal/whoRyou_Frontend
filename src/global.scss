@@ -24,3 +24,27 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+/* CSS required for the project globally */
+@import "./theme/flex.scss";
+@import "./theme/font.scss";
+@import "./theme/margin.scss";
+@import "./theme/padding.scss";
+@import "./theme/others.scss";
+@import "./theme/custom.scss";
+
+/** Font used - Poppins **/
+@import 'https://fonts.googleapis.com/css2?family=Poppins&display=swap';
+
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+.background-color {
+    background: var(--ion-color-dark);
+}
+
+.button-width {
+    width: 120px;
+}

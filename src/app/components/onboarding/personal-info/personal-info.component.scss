@@ -1,0 +1,28 @@
+.input-box {
+    --background: var(--ion-color-dark);
+    --color: var(--ion-color-theme);
+    --highlight-color-focused: var(--ion-color-theme);
+    border-bottom: 1px solid var(--ion-color-theme) !important;
+}
+
+ion-item {
+    &::part(native) {
+        --background: var(--ion-color-dark);
+    }
+}
+
+.select-box {
+    border-bottom: 1px solid var(--ion-color-theme) !important;
+
+    &::part(label) {
+        color: var(--ion-color-theme);
+    }
+
+    &::part(text) {
+        color: var(--ion-color-theme);
+    }
+
+    &::part(icon) {
+        color: var(--ion-color-theme);
+    }
+}

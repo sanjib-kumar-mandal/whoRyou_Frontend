@@ -1,0 +1,41 @@
+<ion-content [fullscreen]="true" color="dark">
+  <swiper-container 
+      *ngIf="!isShowProfileCreationLoading"
+      #swiper 
+      [modules]="swiperModules"
+      [allowTouchMove]="isAllowTouchMove"
+  >
+    <swiper-slide>
+      <app-pilot (onNextSlide)="goToNextSlide()"></app-pilot>
+    </swiper-slide>
+    <swiper-slide>
+      <app-personal-info (onNextSlide)="goToNextSlide()"></app-personal-info>
+    </swiper-slide>
+    <swiper-slide>
+      <app-name-generator (onPrevSlide)="goToPrevSlide()" (onNextSlide)="goToNextSlide()"></app-name-generator>
+    </swiper-slide>
+    <swiper-slide>
+      <app-create-profile (onPrevSlide)="goToPrevSlide()" (onCreateProfile)="createProfile()"></app-create-profile>
+    </swiper-slide>
+  </swiper-container>
+
+  <ng-container *ngIf="isShowProfileCreationLoading">
+    <div class="height-100 flex-column">
+      <div class="ion-padding ion-margin">
+        <ion-text class="very-big-font bold" color="light">
+          {{ 'Just a sec!' }}
+        </ion-text>
+      </div>
+      <div class="ion-padding ion-margin flex-1">
+        <ng-lottie
+            [options]="options"
+        ></ng-lottie>
+      </div>
+      <div class="ion-padding ion-margin flex-1 center">
+        <ion-text color="light" class="big-font">
+          {{ 'We are getting things ready for you...' }}
+        </ion-text>
+      </div>
+    </div>
+  </ng-container>
+</ion-content>

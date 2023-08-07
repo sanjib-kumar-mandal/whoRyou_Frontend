@@ -1,0 +1,33 @@
+<div class="height-100 flex-column background-color">
+
+  <div class="ion-padding ion-margin">
+    <ion-text class="very-big-font bold" color="light">
+      {{ 'Now it\'s time for your nick name!' }}
+    </ion-text>
+  </div>
+
+  <div class="flex-1 flex-column justify-center ion-padding ion-margin">
+      <div class="ion-margin-top">
+        <ion-item>
+          <ion-input 
+            label="Nick Name" 
+            labelPlacement="floating" 
+            class="input-box big-font"
+          ></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="ion-margin">
+        <ion-text color="light" class="normal-font">{{ 'You will be known as: ' }}</ion-text>
+      </div>
+  </div>
+
+  <div class="flex-1 center">
+    <ion-button class="ion-margin-start ion-margin-end button-width" color="light" expand="block" shape="round" (click)="goToPrevSlide()">
+      <ion-text class="ion-padding-top ion-padding-bottom no-text-style">{{ 'Previous' }}</ion-text>
+    </ion-button>
+    <ion-button class="ion-margin-start ion-margin-end button-width" color="light" expand="block" shape="round" (click)="goToNextSlide()">
+      <ion-text class="ion-padding-top ion-padding-bottom no-text-style">{{ 'Next' }}</ion-text>
+    </ion-button>
+  </div>
+</div>

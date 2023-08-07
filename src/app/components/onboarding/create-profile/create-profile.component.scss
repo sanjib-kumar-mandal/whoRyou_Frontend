@@ -1,0 +1,22 @@
+.input-box {
+    --background: var(--ion-color-dark);
+    --color: var(--ion-color-theme);
+    --highlight-color-focused: var(--ion-color-theme);
+    border-bottom: 1px solid var(--ion-color-theme) !important;
+}
+
+ion-item {
+    &::part(native) {
+        --background: var(--ion-color-dark);
+    }
+}
+
+ion-checkbox {
+    --checkbox-background: var(--ion-color-dark);
+    --checkbox-background-checked: var(--ion-color-theme);
+    --checkmark-color: var(--ion-color-dark);
+    &::part(container) {
+        border-radius: 3px;
+        border: 2px solid var(--ion-color-theme);
+    }
+}

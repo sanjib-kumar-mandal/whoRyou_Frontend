@@ -1,0 +1,55 @@
+<div class="height-100 flex-column background-color">
+
+  <div class="ion-padding ion-margin">
+    <ion-text class="very-big-font bold" color="light">
+      {{ 'Let us know who you really are!' }}
+    </ion-text>
+  </div>
+
+  <!-- <div class="flex-1 flex-column ion-margin"> -->
+    <div class="flex-2 flex-column justify-center ion-margin">
+      <!-- <ion-list class="background-color"> -->
+        <ion-item class="background-color">
+          <ion-input 
+            label="First Name" 
+            labelPlacement="floating" 
+            class="input-box big-font"
+          ></ion-input>
+        </ion-item>
+  
+        <ion-item class="background-color">
+          <ion-input 
+            label="Last Name" 
+            labelPlacement="floating" 
+            class="input-box big-font"
+          ></ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-select color="theme" class="ion-padding-top select-box big-font" justify="space-between" label="Gender" interface="popover">
+            <ion-select-option value="apple">Male</ion-select-option>
+            <ion-select-option value="banana">Female</ion-select-option>
+          </ion-select>
+        </ion-item>
+  
+        <ion-item class="background-color">
+          <ion-input 
+            type="number"
+            label="Age" 
+            labelPlacement="floating" 
+            class="input-box big-font"
+          ></ion-input>
+        </ion-item>
+  
+        
+      <!-- </ion-list> -->
+    </div>
+
+    <div class="flex-1 center">
+      <ion-button class="ion-margin-start ion-margin-end button-width" color="light" expand="block" shape="round" (click)="goToNextSlide()">
+        <ion-text class="ion-padding-top ion-padding-bottom no-text-style">{{ 'Next' }}</ion-text>
+      </ion-button>
+    </div>
+  <!-- </div> -->
+
+</div>

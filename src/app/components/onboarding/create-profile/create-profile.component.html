@@ -1,0 +1,43 @@
+<div class="height-100 flex-column background-color">
+
+  <div class="ion-padding ion-margin">
+    <ion-text class="very-big-font bold" color="light">
+      {{ 'Set a strong password!' }}
+    </ion-text>
+  </div>
+
+  <div class="flex-1 flex-column center ion-padding ion-margin">
+    <ion-list class="background-color">
+      <ion-item class="background-color">
+            <ion-input 
+              label="Password" 
+              labelPlacement="floating" 
+              class="input-box big-font"
+            ></ion-input>
+      </ion-item>
+
+      <ion-item class="background-color">
+            <ion-input 
+              label="Confirm password" 
+              labelPlacement="floating" 
+              class="input-box big-font"
+            ></ion-input>
+      </ion-item>
+
+      <div class="high-margin-top ion-margin-start background-color normal-font">
+        <ion-checkbox labelPlacement="end">
+          <ion-text color="theme">Show password</ion-text>
+        </ion-checkbox>
+      </div>
+    </ion-list>
+  </div>
+
+  <div class="flex-1 center">
+    <ion-button class="ion-margin-start ion-margin-end button-width" color="light" expand="block" shape="round" (click)="goToPrevSlide()">
+      <ion-text class="ion-padding-top ion-padding-bottom no-text-style">{{ 'Previous' }}</ion-text>
+    </ion-button>
+    <ion-button class="ion-margin-start ion-margin-end button-width" color="light" expand="block" shape="round" (click)="createProfile()">
+      <ion-text class="ion-padding-top ion-padding-bottom no-text-style">{{ 'Done' }}</ion-text>
+    </ion-button>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+ion-item {
+    &::part(native) {
+        --background: var(--ion-color-dark);
+    }
+}
+
+.input-box {
+    --background: var(--ion-color-dark);
+    --color: var(--ion-color-theme);
+    --highlight-color-focused: var(--ion-color-theme);
+    border-bottom: 1px solid var(--ion-color-theme) !important;
+}

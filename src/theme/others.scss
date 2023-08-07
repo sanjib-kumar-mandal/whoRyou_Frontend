@@ -1,0 +1,108 @@
+.height-100 {
+    height: 100%;
+}
+
+.height-50 {
+    height: 50%;
+}
+
+.width-100 {
+    width: 100%
+}
+
+.dimension-100 {
+    @extend .height-100;
+    @extend .width-100;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.hover-cursor {
+    cursor: pointer;
+}
+
+.color-white {
+    color: white;
+}
+
+.overflow-scroll-x {
+    overflow-x: scroll;
+}
+
+.overflow-scroll-y {
+    overflow-y: scroll;
+}
+
+.overflow-auto-x {
+    overflow-x: auto;
+}
+
+.overflow-auto-y {
+    overflow-y: auto;
+}
+
+.border-radius {
+    border-radius: 7px;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #efefef;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.left-0 {
+    left: 0;
+}
+
+.right-0 {
+    right: 0;
+}
+
+.top-0 {
+    top: 0;
+}
+
+.bottom-0 {
+    bottom: 0;
+}
+
+.z-index-1 {
+    z-index: 1;
+}
+
+.z-index-2 {
+    z-index: 2;
+}
+
+.z-index-3 {
+    z-index: 3;
+}
+
+.no-select {
+    user-select: none;
+}
+
+.no-text-style {
+    text-transform: none;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-lowercase {
+    text-transform: lowercase;
+}
+
+.border {
+    border: 1px solid red;
+}
