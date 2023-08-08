@@ -5,7 +5,8 @@ const config: CapacitorConfig = {
   appName: 'milkyway',
   webDir: 'www',
   server: {
-    androidScheme: 'https'
+    url: 'http://192.168.0.5:8100',
+    cleartext: true
   }
 };
 

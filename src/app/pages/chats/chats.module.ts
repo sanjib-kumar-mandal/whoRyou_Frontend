@@ -5,16 +5,24 @@ import { FormsModule } from '@angular/forms';
 import { ChatsPage } from './chats.page';
 
 import { ChatsPageRoutingModule } from './chats-routing.module';
-import { ExploreContainerComponentModule } from 'src/app/components/explore-container/explore-container.module';
+import { StoryComponent } from 'src/app/components/story/story.component';
+import { StoryAvatarComponent } from 'src/app/custom-components/story-avatar/story-avatar.component';
+import { ChatsComponent } from 'src/app/components/chats/chats.component';
+import { ChatItemComponent } from 'src/app/components/chat-item/chat-item.component';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
     ChatsPageRoutingModule
   ],
-  declarations: [ChatsPage]
+  declarations: [
+    ChatsPage, 
+    StoryComponent, 
+    StoryAvatarComponent, 
+    ChatsComponent, 
+    ChatItemComponent
+  ]
 })
 export class ChatsPageModule {}

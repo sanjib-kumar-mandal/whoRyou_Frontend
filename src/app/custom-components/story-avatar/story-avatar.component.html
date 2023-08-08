@@ -1,0 +1,23 @@
+<div *ngIf="isAddStoryButton; else avatar" class="medium-margin">
+  <div class="add-story">
+    <ion-avatar class="center">
+      <ion-icon color="dark" name="add-circle" size="large"></ion-icon>
+    </ion-avatar>
+  </div>
+  <div class="ion-text-center low-padding-top">
+    <ion-text class="small-font">{{ 'Your story' }}</ion-text>
+  </div>
+</div>
+
+<ng-template #avatar>
+  <div class="medium-margin">
+    <div *ngIf="avatarUrl" class="avatar-perimeter">
+      <ion-avatar>
+        <img alt="avatar" [src]="avatarUrl" />
+      </ion-avatar>
+    </div>
+    <div class="ion-text-center low-padding-top">
+      <ion-text class="small-font">{{ 'Trijit' }}</ion-text>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,14 @@
+.add-story {
+    border-radius: 50%;
+    border: 3px solid var(--ion-color-theme);
+    padding: 5px;
+    ion-avatar {
+        background: var(--ion-color-theme);
+    }
+}
+
+.avatar-perimeter {
+    border-radius: 50%;
+    border: 3px solid grey;
+    padding: 5px;
+}
