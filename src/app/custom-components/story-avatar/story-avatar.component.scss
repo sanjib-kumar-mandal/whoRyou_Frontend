@@ -9,6 +9,17 @@
 
 .avatar-perimeter {
     border-radius: 50%;
-    border: 3px solid grey;
+    border-width: 3px;
+    border-style: solid;
     padding: 5px;
+}
+
+.avatar-perimeter-seen {
+    @extend .avatar-perimeter;
+    border-color: grey;
+}
+
+.avatar-perimeter-unseen {
+    @extend .avatar-perimeter;
+    border-color: var(--ion-color-theme);
 }

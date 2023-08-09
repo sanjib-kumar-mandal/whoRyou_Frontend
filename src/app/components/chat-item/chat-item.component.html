@@ -1,3 +1,26 @@
-<p>
-  chat-item works!
-</p>
+<ion-item button href="#" color="light" lines="full" class="chat-item">
+  <ion-avatar slot="start" class="avatar">
+    <img alt="avatar" [src]="chatItemInfo.avatarUrl" />
+  </ion-avatar>
+  <ion-label>
+    <div>
+      <ion-text class="small-font bold">{{ chatItemInfo.nickName }}</ion-text>
+    </div>
+    <div>
+      <ion-text class="very-small-font">{{ chatItemInfo.lastMessage }}</ion-text>
+    </div>
+  </ion-label>
+
+  <ion-label slot="end">
+    <div>
+      <ion-text class="small-font">{{ chatItemInfo.lastMessageTime }}</ion-text>
+    </div>
+    <div class="ion-text-end low-padding-top" [ngSwitch]="chatItemInfo.messageStatus">
+      <ion-icon *ngSwitchCase="1" color="success" name="checkmark-done"></ion-icon>
+      <ion-icon *ngSwitchCase="2" color="dark" name="checkmark-done"></ion-icon>
+      <ion-icon *ngSwitchCase="3" color="dark" name="checkmark"></ion-icon>
+      <ion-icon *ngSwitchCase="4" color="dark" name="time-outline"></ion-icon>
+      <ion-badge *ngSwitchCase="6" mode="ios" color="theme">{{ chatItemInfo.unreadMessageCount }}</ion-badge>
+    </div>
+  </ion-label>
+</ion-item>

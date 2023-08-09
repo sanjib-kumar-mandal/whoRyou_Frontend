@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { StoryInfoType } from 'src/app/components/story/story.component';
 
 @Component({
   selector: 'app-story-avatar',
@@ -8,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class StoryAvatarComponent  implements OnInit {
 
   @Input() isAddStoryButton: boolean = false;
-  @Input() avatarUrl: string = '';
+  @Input() storyInfo!: StoryInfoType;
 
   constructor() {}
 

@@ -5,19 +5,19 @@
     </ion-avatar>
   </div>
   <div class="ion-text-center low-padding-top">
-    <ion-text class="small-font">{{ 'Your story' }}</ion-text>
+    <ion-text class="small-font" color="light">{{ 'Your story' }}</ion-text>
   </div>
 </div>
 
 <ng-template #avatar>
   <div class="medium-margin">
-    <div *ngIf="avatarUrl" class="avatar-perimeter">
+    <div *ngIf="storyInfo.content" [ngClass]="storyInfo.isSeen ? 'avatar-perimeter-seen' : 'avatar-perimeter-unseen'">
       <ion-avatar>
-        <img alt="avatar" [src]="avatarUrl" />
+        <img alt="avatar" [src]="storyInfo.content" />
       </ion-avatar>
     </div>
     <div class="ion-text-center low-padding-top">
-      <ion-text class="small-font">{{ 'Trijit' }}</ion-text>
+      <ion-text class="small-font" color="light">{{ storyInfo.postedBy }}</ion-text>
     </div>
   </div>
 </ng-template>
