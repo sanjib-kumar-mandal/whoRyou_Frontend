@@ -35,6 +35,7 @@
 
 /** Font used - Poppins **/
 @import 'https://fonts.googleapis.com/css2?family=Poppins&display=swap';
+@import '@ctrl/ngx-emoji-mart/picker';
 
 
 * {
@@ -47,4 +48,8 @@
 
 .button-width {
     width: 120px;
+}
+
+.avatar-border {
+    border: 1px solid var(--ion-color-light);
 }

@@ -1,21 +1,10 @@
-<ion-content color="dark" [fullscreen]="true">
-    <ion-grid class="height-100">
-      <ion-row>
-        <ion-col class="ion-padding-start ion-padding-top">
-          <ion-text class="big-font">{{ 'whoRyou' }}</ion-text>
-        </ion-col>
-      </ion-row>
-  
-      <ion-row>
-        <ion-col>
-          <app-story></app-story>
-        </ion-col>
-      </ion-row>
-  
-      <ion-row class="height-100">
-        <ion-col>
-          <app-chats-component></app-chats-component>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title class="big-font ion-padding-top">{{ 'whoRyou' }}</ion-title>
+    <app-story></app-story>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light" [fullscreen]="true">
+      <app-chats-component></app-chats-component>
 </ion-content>

@@ -1,0 +1,35 @@
+.toolbar {
+    --padding-bottom: none;
+}
+
+.message-box-container {
+    border: 1px solid #E5E6E9;
+    border-radius: 30px;
+}
+
+.message-box {
+    background: #fff;
+    color: var(--ion-color-dark);
+    border: none;
+    outline: none;
+}
+
+.message {
+    border-radius: 10px;
+    word-wrap: break-word;
+    max-width: 70vw;
+}
+
+.sender-message {
+    @extend .message;
+    background: #fff1bf;
+}
+
+.receiver-message {
+    @extend .message;
+    background: #ffe1cc;
+}
+
+.time-text {
+    color: #808080;
+}

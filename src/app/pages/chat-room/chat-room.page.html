@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar color="dark" class="ion-padding-top ion-padding-bottom toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-avatar size="small" slot="start" class="avatar-border">
+      <img alt="avatar" [src]="'https://api.dicebear.com/6.x/micah/svg?seed=rahul'" />
+    </ion-avatar>
+    <ion-title>
+      <div>
+        <ion-text>{{ 'Rahul' }}</ion-text>
+      </div>
+      <div>
+        <ion-text class="small-font">{{ 'online' }}</ion-text>
+      </div>
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="messages.length" class="flex-column high-padding">
+    <ng-container *ngFor="let message of messages">
+      <div *ngIf="message.type === MessageType.FROM_SENDER" class="high-margin-top flex-column align-items-start">
+        <div class="sender-message ion-padding">
+          <ion-text>
+            {{ message.message }}
+          </ion-text>
+        </div>
+        <div class="low-margin-top">
+          <ion-text class="time-text">{{ message.time }}</ion-text>
+        </div>
+      </div>
+  
+      <div *ngIf="message.type === MessageType.FROM_USER" class="high-margin-top flex-column align-items-end">
+        <div class="receiver-message ion-padding">
+          <ion-text>
+            {{ message.message }}
+          </ion-text>
+        </div>
+        <div class="low-margin-top justify-end">
+          <ion-text class="time-text">{{ message.time }}</ion-text>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+  <div *ngIf="!messages.length">
+    {{ 'Loading...' }}
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div style="background: #fff;" class="medium-padding">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="ion-align-self-center message-box-container">
+          <div class="low-padding align-items-center">
+            <ion-icon size="large" color="dark" name="happy-outline" (click)="showEmojiStore()"></ion-icon>
+            <textarea (focus)="onFocusMessage()" [(ngModel)]="message" placeholder="Type message..." rows="1" class="low-margin-left width-100 message-box"></textarea>
+            <ion-icon size="large" color="dark" name="attach"></ion-icon>
+          </div>
+        </ion-col>
+  
+        <ion-col class="low-margin-left" size="auto">
+          <ion-fab-button color="theme">
+            <ion-icon name="mic"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div *ngIf="isShowEmojiStore">
+    <emoji-mart 
+      [style]="{'width': '100%', 'height': '100%'}"
+      [darkMode]="true"
+      [showPreview]="false"
+      (emojiClick)="addEmoji($event)"
+    ></emoji-mart>
+  </div>
+</ion-footer>

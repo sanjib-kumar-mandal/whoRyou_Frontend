@@ -98,7 +98,52 @@ export class ChatsComponent  implements OnInit {
         lastMessageTime: '12:25 PM',
         unreadMessageCount: 0,
         messageStatus: MessageStatusEnum.DELIVERED
-      }
+      },
+      {
+        id: '1',
+        nickName: 'Tuhin',
+        avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=tuhin',
+        lastMessage: 'This is some message!!!',
+        lastMessageTime: '12:25 PM',
+        unreadMessageCount: 0,
+        messageStatus: MessageStatusEnum.DELIVERED
+      },
+      {
+        id: '1',
+        nickName: 'Tuhin',
+        avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=tuhin',
+        lastMessage: 'This is some message!!!',
+        lastMessageTime: '12:25 PM',
+        unreadMessageCount: 0,
+        messageStatus: MessageStatusEnum.DELIVERED
+      },
+      {
+        id: '1',
+        nickName: 'Tuhin',
+        avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=tuhin',
+        lastMessage: 'This is some message!!!',
+        lastMessageTime: '12:25 PM',
+        unreadMessageCount: 0,
+        messageStatus: MessageStatusEnum.DELIVERED
+      },
+      {
+        id: '1',
+        nickName: 'Tuhin',
+        avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=tuhin',
+        lastMessage: 'This is some message!!!',
+        lastMessageTime: '12:25 PM',
+        unreadMessageCount: 0,
+        messageStatus: MessageStatusEnum.DELIVERED
+      },
+      {
+        id: '1',
+        nickName: 'Tuhin',
+        avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=tuhin',
+        lastMessage: 'This is some message!!!',
+        lastMessageTime: '12:25 PM',
+        unreadMessageCount: 0,
+        messageStatus: MessageStatusEnum.DELIVERED
+      },
   ];
 
   constructor() { }
