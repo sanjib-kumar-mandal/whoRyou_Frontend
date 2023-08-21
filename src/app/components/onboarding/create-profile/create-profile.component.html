@@ -10,22 +10,30 @@
     <ion-list class="background-color">
       <ion-item class="background-color">
             <ion-input 
+              [type]="inputType"
               label="Password" 
               labelPlacement="floating" 
               class="input-box big-font"
+              required
+              errorText="Please enter a password!"
+              [(ngModel)]="password"
             ></ion-input>
       </ion-item>
 
       <ion-item class="background-color">
             <ion-input 
+              [type]="inputType"
               label="Confirm password" 
               labelPlacement="floating" 
               class="input-box big-font"
+              required
+              errorText="Please re-enter password!"
+              [(ngModel)]="passwordCopy"
             ></ion-input>
       </ion-item>
 
       <div class="high-margin-top ion-margin-start background-color normal-font">
-        <ion-checkbox labelPlacement="end">
+        <ion-checkbox labelPlacement="end" (ionChange)="onCheckboxClicked($event)">
           <ion-text color="theme">Show password</ion-text>
         </ion-checkbox>
       </div>

@@ -13,12 +13,16 @@
             label="Nick Name" 
             labelPlacement="floating" 
             class="input-box big-font"
+            required
+            errorText="Please enter nick name!"
+            [(ngModel)]="nickname"
+            (ionInput)="onTypingNickname($event)"
           ></ion-input>
         </ion-item>
       </div>
 
       <div class="ion-margin">
-        <ion-text color="light" class="normal-font">{{ 'You will be known as: ' }}</ion-text>
+        <ion-text color="light" class="normal-font">{{ 'You will be known as: ' }} <ion-text color="theme" class="big-font">{{ nickname }}</ion-text></ion-text>
       </div>
   </div>
 

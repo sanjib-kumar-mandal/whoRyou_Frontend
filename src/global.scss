@@ -53,3 +53,9 @@
 .avatar-border {
     border: 1px solid var(--ion-color-light);
 }
+
+.global-loading-class {
+    color: var(--ion-color-light);
+    --spinner-color: var(--ion-color-theme);
+    --background: var(--ion-color-dark);
+}

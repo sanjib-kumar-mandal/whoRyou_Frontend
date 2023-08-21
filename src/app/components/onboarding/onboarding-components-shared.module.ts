@@ -5,6 +5,7 @@ import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import { NameGeneratorComponent } from './name-generator/name-generator.component';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { IonicModule } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -17,7 +18,8 @@ import { IonicModule } from '@ionic/angular';
   ],
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+   FormsModule
   ],
   exports: [
     PilotComponent,

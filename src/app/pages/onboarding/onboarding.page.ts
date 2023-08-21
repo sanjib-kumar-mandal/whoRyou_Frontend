@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { IonicSlides } from '@ionic/angular';
 import { AnimationLoader, AnimationOptions, provideLottieOptions } from 'ngx-lottie';
 import { StorageService } from 'src/app/services/storage/storage.service';
+import { OnboardingService } from './onboarding.service';
+import { combineLatest, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-onboarding',
@@ -28,7 +30,8 @@ export class OnboardingPage implements OnInit {
 
   constructor(
     private readonly storageService: StorageService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly onBoardingService: OnboardingService
   ) { }
 
   ngOnInit() {
@@ -49,11 +52,27 @@ export class OnboardingPage implements OnInit {
 
 
   public createProfile() {
-    this.isShowProfileCreationLoading = true
-    setTimeout(() => {
-      this.storageService.set('isOnboardingDone', true);
-      this.router.navigate(['/'], { replaceUrl: true });
-    }, 3000);
+    this.isShowProfileCreationLoading = true;
 
+    combineLatest([
+      this.onBoardingService.personalInfoObservable.pipe(distinctUntilChanged()),
+      this.onBoardingService.nicknameObservable.pipe(distinctUntilChanged()),
+      this.onBoardingService.passwordObservable.pipe(distinctUntilChanged())
+    ])
+      .subscribe(([
+        personalInfo, 
+        nickname, 
+        password
+      ]) => {
+        console.log({
+          personalInfo, 
+          nickname, 
+          password
+        })
+        setTimeout(() => {
+          this.storageService.set('isOnboardingDone', true);
+          this.router.navigate(['/'], { replaceUrl: true });
+        }, 3000);
+      }).unsubscribe();
   }
 }

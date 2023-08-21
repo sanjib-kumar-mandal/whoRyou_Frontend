@@ -8,5 +8,6 @@ ion-item {
     --background: var(--ion-color-dark);
     --color: var(--ion-color-theme);
     --highlight-color-focused: var(--ion-color-theme);
-    border-bottom: 1px solid var(--ion-color-theme) !important;
+    --border-color: var(--ion-color-theme);
+    caret-color: var(--ion-color-theme);
 }

@@ -14,6 +14,9 @@
             label="First Name" 
             labelPlacement="floating" 
             class="input-box big-font"
+            required
+            errorText="Please enter first name!"
+            [(ngModel)]="personalInfo.firstname"
           ></ion-input>
         </ion-item>
   
@@ -22,15 +25,29 @@
             label="Last Name" 
             labelPlacement="floating" 
             class="input-box big-font"
+            required
+            errorText="Please enter last name!"
+            [(ngModel)]="personalInfo.lastname"
           ></ion-input>
         </ion-item>
   
         <ion-item>
-          <ion-select color="theme" class="ion-padding-top select-box big-font" justify="space-between" label="Gender" interface="popover">
-            <ion-select-option value="apple">Male</ion-select-option>
-            <ion-select-option value="banana">Female</ion-select-option>
+          <ion-select 
+              (ionDismiss)="onDismissGenderSelect()" 
+              (ionChange)="onChangeGender($event)"
+              color="theme" 
+              class="ion-padding-top big-font" 
+              justify="space-between" 
+              label="Gender" 
+              interface="popover"
+              [ngClass]="isGenderSelectTouched && !isGenderSelected ? 'select-box-error' : 'select-box'"
+          >
+            <ion-select-option *ngFor="let gender of genders" [value]="gender.value">{{ gender.label }}</ion-select-option>
           </ion-select>
         </ion-item>
+        <div *ngIf="isGenderSelectTouched && !isGenderSelected">
+          <ion-text class="extra-small-font ion-margin-start" color="danger">{{ 'Please enter gender!' }}</ion-text>
+        </div>
   
         <ion-item class="background-color">
           <ion-input 
@@ -38,6 +55,9 @@
             label="Age" 
             labelPlacement="floating" 
             class="input-box big-font"
+            required
+            errorText="Please enter age!"
+            [(ngModel)]="personalInfo.age"
           ></ion-input>
         </ion-item>
   
