@@ -15,6 +15,9 @@ export class AuthService {
   private userLogStatusObserver$ = new BehaviorSubject<boolean>(null!);
   public userLogStatusObservable = this.userLogStatusObserver$.asObservable();
 
+  private userInfoObserver$ = new BehaviorSubject<UserInfoInterface>(null!);
+  public userInfoObservable = this.userInfoObserver$.asObservable();
+
   constructor(
     private http: HttpClient,
     private storageService: StorageService
@@ -36,12 +39,16 @@ export class AuthService {
     return this.http.get(`${this.apiBasePath}/api/v1/auth/logout`, { observe: 'response' });
   }
 
-  private setUserLogStatus(status: boolean) {
-    this.userLogStatusObserver$.next(status);
+  public getUserInfo(): Observable<UserInfoInterface> {
+     return this.http.get<UserInfoInterface>(`${this.apiBasePath}/api/v1/users/getUserInfo`);
   }
 
-  private getUserLogStatus(nickname: string): Observable<UserLogStatusResponseIntreface> {
-     return this.http.get<UserLogStatusResponseIntreface>(`${this.apiBasePath}/api/v1/auth/getLogStatus/${nickname}`);
+  public setUserInfo(userInfo: UserInfoInterface) {
+    this.userInfoObserver$.next(userInfo);
+  }
+
+  public setUserLogStatus(status: boolean) {
+    this.userLogStatusObserver$.next(status);
   }
 
   public async handleSignUpUser(userInfo: SignUpPayloadInterface): Promise<UserInfoInterface> {
@@ -51,11 +58,25 @@ export class AuthService {
              const { accessToken } = response?.userInfo?.tokens!;
 
              if(accessToken) {
+
+                this.setUserInfo({
+                  firstname: response.userInfo.firstname,
+                  lastname: response.userInfo.lastname,
+                  nickname: response.userInfo.nickname,
+                  gender: response.userInfo.gender,
+                  age: response.userInfo.age,
+                  isLoggedIn: true,
+                  lastLogggedInAt: response.userInfo.lastLogggedInAt,
+                  lastLogggedOutAt: response.userInfo.lastLogggedOutAt,
+                });
+
                 this.setUserLogStatus(true);
+
                 this.storageService.set('accessToken', accessToken);
                 const { tokens, ...rest } = response?.userInfo;
                 resolve(rest);
              } else {
+                this.setUserInfo(null!);
                 this.setUserLogStatus(false);
                 resolve(null!);
              }
@@ -72,11 +93,22 @@ export class AuthService {
             const { accessToken } = response?.userInfo?.tokens!;
 
             if(accessToken) {
+              this.setUserInfo({
+                firstname: response.userInfo.firstname,
+                lastname: response.userInfo.lastname,
+                nickname: response.userInfo.nickname,
+                gender: response.userInfo.gender,
+                age: response.userInfo.age,
+                isLoggedIn: true,
+                lastLogggedInAt: response.userInfo.lastLogggedInAt,
+                lastLogggedOutAt: response.userInfo.lastLogggedOutAt,
+              });
               this.setUserLogStatus(true);
               this.storageService.set('accessToken', accessToken);
               const { tokens, ...rest } = response?.userInfo;
               resolve(rest);
            } else {
+              this.setUserInfo(null!);
               this.setUserLogStatus(false);
               resolve(null!);
            }
@@ -92,6 +124,7 @@ export class AuthService {
       this.logout().subscribe({
         next: (response) => {
           if(response?.status === 200) {
+            this.setUserInfo(null!);
             this.setUserLogStatus(false);
             resolve();
           }
@@ -99,10 +132,33 @@ export class AuthService {
         error: (error) => reject(error)
       });
     })
-  }
+  } 
 
-  public getUserInfo() {
+  public validateAuthentication() {
+       
+    let accessToken = this.storageService.get('accessToken'); 
+    // Check for access token in local storage and set user info accordingly
+
+    if(accessToken) { 
+       this.getUserInfo().subscribe({
+        next: (response) => {
+          if(Object.keys(response).length) {
+            this.setUserLogStatus(response.isLoggedIn);
+            this.setUserInfo(response);
+          }
+        },
+        error: (error) => {
+          this.setUserLogStatus(false);
+          this.setUserInfo(null!);
+        }
+       })
+    } else {
+      this.setUserLogStatus(null!);
+      this.setUserInfo(null!);
+    }
+      
     
+
   }
 
 }

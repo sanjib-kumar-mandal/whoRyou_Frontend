@@ -9,7 +9,8 @@ const routes: Routes = [
     children: [
       {
         path: 'chats',
-        loadChildren: () => import('../chats/chats.module').then(m => m.ChatsPageModule)
+        loadChildren: () => import('../chats/chats.module').then(m => m.ChatsPageModule),
+      //  canActivate: [AuthGuard]
       },
       {
         path: 'search',

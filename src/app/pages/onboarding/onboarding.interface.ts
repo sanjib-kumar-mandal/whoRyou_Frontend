@@ -18,8 +18,9 @@ export interface UserInfoInterface {
 	age: number;
 	gender: string;
 	password?: string;
-    isLoggedIn?: boolean; 
-    lastLogggedInAt?: string;
+    isLoggedIn: boolean; 
+    lastLogggedInAt: string;
+    lastLogggedOutAt: string;
     tokens?: TokenInfoInterface;
 }
 

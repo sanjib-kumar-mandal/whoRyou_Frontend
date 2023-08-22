@@ -17,7 +17,6 @@ class TabGuardService {
     return new Observable<boolean>(obs => {
 
         let isOnboardingDone = this.storageService.get('isOnboardingDone');
-        console.log("isOnboardingDone", isOnboardingDone);
         if(isOnboardingDone) {
           obs.next(true);
         } else {
