@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'milkyway',
   webDir: 'www',
   server: {
-    url: 'http://192.168.0.5:8100',
+  //  url: 'http://192.168.0.5:8100',
     cleartext: true
   }
 };

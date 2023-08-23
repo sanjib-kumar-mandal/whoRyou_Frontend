@@ -5,6 +5,8 @@ import { AnimationLoader, AnimationOptions, provideLottieOptions } from 'ngx-lot
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { OnboardingService } from './onboarding.service';
 import { combineLatest, distinctUntilChanged } from 'rxjs';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-onboarding',
@@ -31,7 +33,9 @@ export class OnboardingPage implements OnInit {
   constructor(
     private readonly storageService: StorageService,
     private readonly router: Router,
-    private readonly onBoardingService: OnboardingService
+    private readonly onBoardingService: OnboardingService,
+    private readonly authService: AuthService,
+    private readonly toastService: ToastService
   ) { }
 
   ngOnInit() {
@@ -69,10 +73,28 @@ export class OnboardingPage implements OnInit {
           nickname, 
           password
         })
-        setTimeout(() => {
-          this.storageService.set('isOnboardingDone', true);
-          this.router.navigate(['/'], { replaceUrl: true });
-        }, 3000);
+        // setTimeout(() => {
+        //   this.storageService.set('isOnboardingDone', true);
+        //   this.router.navigate(['/'], { replaceUrl: true });
+        // }, 3000);
+
+        this.authService.handleSignUpUser({
+          ...personalInfo,
+          nickname,
+          password
+        })
+         .then(() => {
+            this.toastService.show({
+              message: 'You have signed in successfully!',
+              status: 'success',
+              duration: 3000
+            });
+            this.storageService.set('isOnboardingDone', true);
+            this.router.navigate(['/'], { replaceUrl: true });
+         });
+          
       }).unsubscribe();
   }
+
+
 }

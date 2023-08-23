@@ -1,5 +1,5 @@
 const apiDomains = {
-  local: 'http://localhost:3333',
+  local: 'http://localhost:3000',
   staging: 'https://staging-whoryou.cyclic.cloud'
 }
 

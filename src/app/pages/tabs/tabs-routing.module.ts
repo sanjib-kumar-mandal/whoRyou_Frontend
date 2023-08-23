@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { AuthGuard } from 'src/app/services/auth-guard/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -10,19 +11,22 @@ const routes: Routes = [
       {
         path: 'chats',
         loadChildren: () => import('../chats/chats.module').then(m => m.ChatsPageModule),
-      //  canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'search',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule),
+        canActivate: [AuthGuard]
       },
       {
         path: 'chatfolio',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule),
+        canActivate: [AuthGuard]
       },
       {
         path: 'profile',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule),
+        canActivate: [AuthGuard]
       },
       {
         path: '',
