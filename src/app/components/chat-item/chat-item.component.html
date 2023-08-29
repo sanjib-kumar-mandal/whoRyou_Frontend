@@ -13,14 +13,14 @@
 
   <ion-label slot="end">
     <div>
-      <ion-text class="small-font">{{ chatItemInfo.lastMessageTime }}</ion-text>
+      <ion-text class="small-font">{{ chatItemInfo.lastMessageTime | date: 'shortTime' }}</ion-text>
     </div>
     <div class="ion-text-end low-padding-top" [ngSwitch]="chatItemInfo.messageStatus">
-      <ion-icon *ngSwitchCase="1" color="success" name="checkmark-done"></ion-icon>
-      <ion-icon *ngSwitchCase="2" color="dark" name="checkmark-done"></ion-icon>
-      <ion-icon *ngSwitchCase="3" color="dark" name="checkmark"></ion-icon>
-      <ion-icon *ngSwitchCase="4" color="dark" name="time-outline"></ion-icon>
-      <ion-badge *ngSwitchCase="6" mode="ios" color="theme">{{ chatItemInfo.unreadMessageCount }}</ion-badge>
+      <ion-icon *ngSwitchCase="MessageStatusEnum.READ" color="success" name="checkmark-done"></ion-icon>
+      <ion-icon *ngSwitchCase="MessageStatusEnum.NOT_READ" color="dark" name="checkmark-done"></ion-icon>
+      <ion-icon *ngSwitchCase="MessageStatusEnum.DELIVERED" color="dark" name="checkmark"></ion-icon>
+      <ion-icon *ngSwitchCase="MessageStatusEnum.NOT_DELIVERED" color="dark" name="time-outline"></ion-icon>
+      <ion-badge *ngSwitchCase="MessageStatusEnum.NOT_SEEN" mode="ios" color="theme">{{ chatItemInfo.unreadMessageCount }}</ion-badge>
     </div>
   </ion-label>
 </ion-item>

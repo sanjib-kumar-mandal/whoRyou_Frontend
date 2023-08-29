@@ -1,3 +1,45 @@
-<p>
-  login-modal works!
-</p>
+<ion-content color="dark">
+  <div class="height-100 flex-column background-color">
+    <div class="ion-padding ion-margin">
+      <ion-text class="very-big-font bold" color="light">
+        {{ 'Please login to your account!' }}
+      </ion-text>
+    </div>
+
+    <div class="flex-1 flex-column justify-center ion-padding ion-margin">
+      <div class="ion-margin-top">
+        <ion-item lines="none">
+          <ion-input 
+            label="Nick Name" 
+            labelPlacement="floating" 
+            class="input-box big-font"
+            required
+            errorText="Please enter nick name!"
+            [(ngModel)]="loginInfo.nickname"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-input 
+            label="Password" 
+            type="password"
+            labelPlacement="floating" 
+            class="input-box big-font"
+            required
+            errorText="Please enter password!"
+            [(ngModel)]="loginInfo.password"
+          ></ion-input>
+        </ion-item>
+      </div>
+    </div>
+
+    <div class="flex-1 center">
+      <ion-button class="ion-margin-start ion-margin-end button-width" color="light" expand="block" shape="round" (click)="handleLogin()">
+        <ion-text class="ion-padding-top ion-padding-bottom no-text-style">{{ 'Login' }}</ion-text>
+      </ion-button>
+    </div>
+    <div class="ion-text-center" (click)="handleForgotPassword()">
+      <ion-text class="normal-font middle-padding-bottom">{{ 'forgot password?' }}</ion-text>
+    </div>
+  </div>
+</ion-content>

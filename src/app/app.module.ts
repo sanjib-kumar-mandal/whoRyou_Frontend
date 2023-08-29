@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GlobalInterceptor } from './interceptors/global.interceptor';
+import { LoginModalComponent } from './components/login-modal/login-modal.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +16,8 @@ import { GlobalInterceptor } from './interceptors/global.interceptor';
     BrowserModule, 
     IonicModule.forRoot({ navAnimation: (baseElement, options) => iosTransitionAnimation(baseElement, options) }),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    LoginModalComponent
   ],
   providers: [
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

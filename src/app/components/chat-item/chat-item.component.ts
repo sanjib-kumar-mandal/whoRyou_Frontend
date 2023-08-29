@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ChatItemInfoType } from '../chats/chats.component';
+import { ChatItemInfoInterface, MessageStatusEnum } from 'src/app/pages/chats/chats.interface';
+
 @Component({
   selector: 'app-chat-item',
   templateUrl: './chat-item.component.html',
@@ -8,7 +9,9 @@ import { ChatItemInfoType } from '../chats/chats.component';
 })
 export class ChatItemComponent  implements OnInit {
 
-  @Input() chatItemInfo!: ChatItemInfoType;
+  @Input() chatItemInfo!: ChatItemInfoInterface;
+
+  public MessageStatusEnum = MessageStatusEnum;
 
   constructor(
     private router: Router,

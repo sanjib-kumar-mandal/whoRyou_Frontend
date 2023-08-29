@@ -63,6 +63,7 @@ export class AuthService {
              if(accessToken && refreshToken) {
 
                 this.setUserInfo({
+                  id: response.userInfo.id,
                   firstname: response.userInfo.firstname,
                   lastname: response.userInfo.lastname,
                   nickname: response.userInfo.nickname,
@@ -99,6 +100,7 @@ export class AuthService {
 
             if(accessToken && refreshToken) {
               this.setUserInfo({
+                id: response.userInfo.id,
                 firstname: response.userInfo.firstname,
                 lastname: response.userInfo.lastname,
                 nickname: response.userInfo.nickname,
@@ -127,17 +129,17 @@ export class AuthService {
     });
   }
 
-  public handleLogoutUser(): Promise<void> {
+  public handleLogoutUser(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.logout().subscribe({
         next: (response) => {
           if(response?.status === 200) {
             this.setUserInfo(null!);
             this.setUserLogStatus(false);
-            resolve();
+            resolve(true);
           }
         },
-        error: (error) => reject(error)
+        error: (error) => reject(false)
       });
     })
   } 
@@ -174,6 +176,7 @@ export class AuthService {
 
             if(accessToken && refreshToken) {
               this.setUserInfo({
+                id: response.userInfo.id,
                 firstname: response.userInfo.firstname,
                 lastname: response.userInfo.lastname,
                 nickname: response.userInfo.nickname,

@@ -1,6 +1,6 @@
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatsPage } from './chats.page';
 
@@ -23,6 +23,7 @@ import { ChatItemComponent } from 'src/app/components/chat-item/chat-item.compon
     StoryAvatarComponent, 
     ChatsComponent, 
     ChatItemComponent
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class ChatsPageModule {}

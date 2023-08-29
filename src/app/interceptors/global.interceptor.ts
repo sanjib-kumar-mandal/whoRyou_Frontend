@@ -5,11 +5,11 @@ import { AuthService } from "../services/auth/auth.service";
 import { StorageService } from "../services/storage/storage.service";
 import { environment } from "src/environments/environment";
 
+const REFRESH_TOKEN_API_PATH = `${environment.apiBasePath}/api/v1/auth/refresh`;
 @Injectable()
 export class GlobalInterceptor implements HttpInterceptor {
 
     private refreshTokenInProgress: boolean = false;
-    // Refresh Token Subject is used to queue new 401s while refresh is in progress. Once refresh succeeds pending queues subscriptions are fired with next and can be processed.
     private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
     constructor(
@@ -22,12 +22,6 @@ export class GlobalInterceptor implements HttpInterceptor {
                 const updatedRequest = this.addAuthenticationToken(request)
                 return next.handle(updatedRequest).pipe(
                     catchError((error: HttpErrorResponse) => {
-                        // if ((request.url.toLowerCase().indexOf("token/v2") > -1) && (this.refreshTokenInProgress == true) && (error.status == 400)) {
-                        //     this.authService.handleLogoutUser();
-                        //     return throwError(() => error);
-                        // }
-
-                        console.log("error", error)
 
                         if (error.status == 401) {
                             return this.checkForRefreshToken(request, next);
@@ -45,10 +39,10 @@ export class GlobalInterceptor implements HttpInterceptor {
 
     private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
         const accessToken = this.storageService.get('accessToken');
-        console.log(request, `${environment.apiBasePath}/api/v1/auth/refresh`)
+        const refreshToken = this.storageService.get('refreshToken');
         return request.clone({
             setHeaders: {
-                Authorization: request.url === `${environment.apiBasePath}/api/v1/auth/refresh` ? `Bearer ${this.storageService.get('refreshToken')}` : `Bearer ${accessToken}`
+                Authorization: request.url === REFRESH_TOKEN_API_PATH ? `Bearer ${refreshToken}` : `Bearer ${accessToken}`
             },
         });
     }
@@ -60,8 +54,7 @@ export class GlobalInterceptor implements HttpInterceptor {
                 take(1),
                 switchMap(() => next.handle(this.addAuthenticationToken(request))),
             )
-        }
-        else {
+        } else {
             this.refreshTokenInProgress = true;
             this.refreshTokenSubject.next(null);
             

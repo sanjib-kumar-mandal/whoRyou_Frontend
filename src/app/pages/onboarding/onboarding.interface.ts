@@ -12,6 +12,7 @@ export interface TokenInfoInterface {
 }
 
 export interface UserInfoInterface {
+    id: string;
     firstname: string;
 	lastname: string;
 	nickname: string;

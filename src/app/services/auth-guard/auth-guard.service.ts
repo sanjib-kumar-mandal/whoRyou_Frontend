@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
-import { filter, Observable, tap } from 'rxjs';
+import { distinctUntilChanged, filter, Observable, tap } from 'rxjs';
 import { StorageService } from '../storage/storage.service';
 import { AuthService } from '../auth/auth.service';
 
@@ -18,14 +18,16 @@ export class AuthGuardService {
     // return this.authService.userLogStatusObservable.pipe(filter(status => status !== null), tap(status => this.logCheck(status)));
     return new Observable<boolean>(obs => {
 
-       this.authService.userLogStatusObservable.pipe(filter(status => status !== null)).subscribe({
+       this.authService.userLogStatusObservable.pipe(filter(status => status !== null), distinctUntilChanged()).subscribe({
            next: (status) => {
+              console.log("status", status)
               obs.next(status) 
               if(!status) {
+                console.log("Open modal")
                 this.authService.openLoginModal();
               }      
            }
-       })
+       });
     })
   }
 
