@@ -139,6 +139,10 @@ export class ChatsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getUserInfo();
+  }
+
+  private getUserInfo() {
     this.authService.userInfoObservable.subscribe({
       next: (userInfo) => {
         console.log("userInfo", userInfo)
@@ -159,6 +163,7 @@ export class ChatsComponent implements OnInit {
                 response.forEach(conversation => {
                   chats.push({
                      id: conversation._id,
+                     receiverId: conversation.participants[1]._id,
                      nickName: conversation.participants[1].nickname,
                      avatarUrl: `https://api.dicebear.com/6.x/micah/svg?seed=${conversation.participants[1].nickname}`,
                      lastMessage: conversation.lastMessageInfo.message,

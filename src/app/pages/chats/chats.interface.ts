@@ -1,7 +1,7 @@
 export interface ConversationInfoInterface {
 	_id: string;
 	participants: Array<{
-        id: string;
+        _id: string;
         nickname: string;
     }>;	
     lastMessageInfo: LastMessageInfoInterface;
@@ -28,6 +28,7 @@ export enum MessageStatusEnum {
 
 export interface ChatItemInfoInterface {
     id: string; 
+    receiverId: string;
     nickName: string;
     avatarUrl: string;
     lastMessage: string;

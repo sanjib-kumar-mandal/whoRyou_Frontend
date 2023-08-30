@@ -24,7 +24,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div *ngIf="messages.length" class="flex-column high-padding">
+  <div *ngIf="messages?.length" class="flex-column high-padding">
     <ng-container *ngFor="let message of messages">
       <div *ngIf="message.type === MessageType.FROM_SENDER" class="high-margin-top flex-column align-items-start">
         <div class="sender-message ion-padding">
@@ -33,7 +33,7 @@
           </ion-text>
         </div>
         <div class="low-margin-top">
-          <ion-text class="time-text">{{ message.time }}</ion-text>
+          <ion-text class="time-text">{{ message.time | date: 'shortTime' }}</ion-text>
         </div>
       </div>
   
@@ -44,13 +44,13 @@
           </ion-text>
         </div>
         <div class="low-margin-top justify-end">
-          <ion-text class="time-text">{{ message.time }}</ion-text>
+          <ion-text class="time-text">{{ message.time | date: 'shortTime'}}</ion-text>
         </div>
       </div>
     </ng-container>
 
   </div>
-  <div *ngIf="!messages.length">
+  <div *ngIf="!messages?.length">
     {{ 'Loading...' }}
   </div>
 </ion-content>

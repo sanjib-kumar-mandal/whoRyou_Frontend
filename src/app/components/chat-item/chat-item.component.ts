@@ -17,10 +17,12 @@ export class ChatItemComponent  implements OnInit {
     private router: Router,
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.chatItemInfo)
+  }
 
   navigateToChatroom() {
-      this.router.navigate(['chat-room']);
+      this.router.navigate(['chat-room', this.chatItemInfo?.receiverId]);
   }
 
 }

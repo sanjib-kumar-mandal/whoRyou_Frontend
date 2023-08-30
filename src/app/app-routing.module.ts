@@ -11,11 +11,11 @@ const routes: Routes = [
   },
   {
     path: 'onboarding',
-    loadChildren: () => import('./pages/onboarding/onboarding.module').then( m => m.OnboardingPageModule)
+    loadChildren: () => import('./pages/onboarding/onboarding.module').then(m => m.OnboardingPageModule)
   },
   {
-    path: 'chat-room',
-    loadChildren: () => import('./pages/chat-room/chat-room.module').then( m => m.ChatRoomPageModule),
+    path: 'chat-room/:receiverId',
+    loadChildren: () => import('./pages/chat-room/chat-room.module').then(m => m.ChatRoomPageModule),
     canActivate: [AuthGuard]
   }
 ];
