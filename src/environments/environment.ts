@@ -5,5 +5,5 @@ const apiDomains = {
 
 export const environment = {
   production: false,
-  apiBasePath: apiDomains.local
+  apiBasePath: apiDomains.staging
 };

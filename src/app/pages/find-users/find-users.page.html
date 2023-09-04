@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="dark" class="ion-padding-top ion-padding-bottom toolbar">
+      <ion-title>{{ 'Find Users' }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item lines="none">
+    <ion-searchbar mode="ios" animated="true" placeholder="Search users"></ion-searchbar>
+  </ion-item>
+
+  <ion-list *ngIf="users?.length">
+    <ion-item button *ngFor="let user of users" lines="full" (click)="goToChatRoom(user)">
+      <ion-avatar slot="start" class="avatar">
+        <img alt="avatar" [src]="user.avatarUrl" />
+      </ion-avatar>
+      <ion-label>
+        <div>
+          <ion-text class="small-font bold">{{ user.nickname }}</ion-text>
+        </div>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="!users?.length && isFetchingUsers" class="height-100 center">
+    <ion-spinner name="lines"></ion-spinner>
+    <ion-text class="normal-font medium-padding-left">{{ 'Fetching users...' }}</ion-text>
+  </div>
+
+  <div *ngIf="!users?.length && !isFetchingUsers" class="height-100 center">
+    <ion-text class="normal-font medium-padding-left">{{ 'No users as of now!' }}</ion-text>
+  </div>
+</ion-content>

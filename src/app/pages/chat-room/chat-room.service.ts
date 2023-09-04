@@ -16,6 +16,7 @@ export class ChatRoomService {
   ) { }
 
   public getChats(receiverId: string): Observable<Array<ChatInfoInterface>> {
-     return this.http.get<Array<ChatInfoInterface>>(`${this.apiBasePath}/api/v1/chat/chats/${receiverId}`)
+    console.log("receiverId", receiverId)
+    return this.http.get<Array<ChatInfoInterface>>(`${this.apiBasePath}/api/v1/chat/chats/${receiverId}`);
   }
 }

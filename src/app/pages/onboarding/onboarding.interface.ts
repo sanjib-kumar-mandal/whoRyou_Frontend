@@ -12,6 +12,7 @@ export interface TokenInfoInterface {
 }
 
 export interface UserInfoInterface {
+    _id?: string;
     id: string;
     firstname: string;
 	lastname: string;
@@ -19,6 +20,7 @@ export interface UserInfoInterface {
 	age: number;
 	gender: string;
 	password?: string;
+    avatarUrl?: string;
     isLoggedIn: boolean; 
     lastLogggedInAt: string;
     lastLogggedOutAt: string;

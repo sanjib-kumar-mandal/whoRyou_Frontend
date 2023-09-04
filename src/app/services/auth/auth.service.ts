@@ -42,6 +42,10 @@ export class AuthService {
     return this.http.get(`${this.apiBasePath}/api/v1/auth/logout`, { observe: 'response' });
   }
 
+  public getUserById(userId: string): Observable<UserInfoInterface> {
+    return this.http.get<UserInfoInterface>(`${this.apiBasePath}/api/v1/users/getUserById/${userId}`);
+  }
+
   public getUserInfo(): Observable<UserInfoInterface> {
      return this.http.get<UserInfoInterface>(`${this.apiBasePath}/api/v1/users/getUserInfo`);
   }
@@ -82,7 +86,7 @@ export class AuthService {
                 const { tokens, ...rest } = response?.userInfo;
                 resolve(rest);
              } else {
-                this.setUserInfo(null!);
+                this.setUserInfo(undefined!);
                 this.setUserLogStatus(false);
                 resolve(null!);
              }
@@ -118,7 +122,7 @@ export class AuthService {
               const { tokens, ...rest } = response?.userInfo;
               resolve(rest);
            } else {
-              this.setUserInfo(null!);
+              this.setUserInfo(undefined!);
               this.setUserLogStatus(false);
               resolve(null!);
            }
@@ -134,7 +138,7 @@ export class AuthService {
       this.logout().subscribe({
         next: (response) => {
           if(response?.status === 200) {
-            this.setUserInfo(null!);
+            this.setUserInfo(undefined!);
             this.setUserLogStatus(false);
             resolve(true);
           }
@@ -158,12 +162,12 @@ export class AuthService {
         },
         error: (error) => {
           this.setUserLogStatus(false);
-          this.setUserInfo(null!);
+          this.setUserInfo(undefined!);
         }
        })
     } else {
-      this.setUserLogStatus(null!);
-      this.setUserInfo(null!);
+      this.setUserLogStatus(false);
+      this.setUserInfo(undefined!);
     } 
 
   }
@@ -194,7 +198,7 @@ export class AuthService {
               const { tokens, ...rest } = response?.userInfo;
               resolve(rest);
            } else {
-              this.setUserInfo(null!);
+              this.setUserInfo(undefined!);
               this.setUserLogStatus(false);
               resolve(null!);
            }

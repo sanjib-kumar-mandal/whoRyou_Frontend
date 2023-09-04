@@ -12,7 +12,8 @@ export class SocketService {
 
   private socket!: Socket;
   private conversations$ = new BehaviorSubject<Array<ConversationInfoInterface>>(null!);
-  private chats$ = new BehaviorSubject<Array<ChatInfoInterface>>(null!);
+  private chats$ = new BehaviorSubject<ChatInfoInterface>(null!);
+  private typingStatus$ = new BehaviorSubject<{ senderId: string; receiverId: string; }>(null!);
 
   constructor() {
     this.setupSocketConnection();
@@ -22,12 +23,12 @@ export class SocketService {
     this.socket = io(environment.apiBasePath, { transports : ['websocket'] });
   }
 
-  public sendUserId(userId: string) {
-    this.socket?.emit('USER_ID', { userId });
+  public sendConversationGettingEvent() {
+    this.socket?.emit('GET_CONVERSATIONS');
   }
 
   public getAllConversations(): Observable<Array<ConversationInfoInterface>> {
-    this.socket.on('CONVERSATIONS', (payload: Array<ConversationInfoInterface>) => {
+    this.socket.on('SEND_CONVERSATIONS', (payload: Array<ConversationInfoInterface>) => {
         console.log("ConversationInfo payload", payload);
         this.conversations$.next(payload);
     });
@@ -35,12 +36,41 @@ export class SocketService {
     return this.conversations$.asObservable();
   }
 
-  public getChats(): Observable<Array<ChatInfoInterface>> {
-     this.socket.on('CHAT', (payload: Array<ChatInfoInterface>) => {
+  public getChat(): Observable<ChatInfoInterface> {
+     this.socket.on('SEND_CHAT', (payload: ChatInfoInterface) => {
          console.log('ChatInfo payload', payload);
          this.chats$.next(payload);
      });
     
      return this.chats$.asObservable();
+  }
+
+  public sendChat(chatInfo: ChatInfoInterface) {
+    this.socket.emit('CREATE_CHAT', chatInfo);
+  }
+
+  public sendTypingEvent(senderId: string, receiverId: string) {
+    this.socket?.emit('TYPING', { senderId, receiverId });
+  }
+
+  public sendTyingOffEvent() {
+    this.socket?.emit('TYPING', { userId: null, receiverId: null });
+  }
+
+  public placeTypingEventListener() {
+    this.socket.on('ON_TYPING', (payload: { senderId: string; receiverId: string; }) => {
+      console.log('on typing payload', payload);
+      this.typingStatus$.next(payload);
+    });
+ 
+    return this.typingStatus$.asObservable();
+  }
+
+  public removeChatListener() {
+    this.socket?.off('SEND_CHAT');
+  }
+
+  public removeTypingStatusListener() {
+    this.socket?.off('ON_TYPING');
   }
 }

@@ -22,7 +22,7 @@ export class ChatItemComponent  implements OnInit {
   }
 
   navigateToChatroom() {
-      this.router.navigate(['chat-room', this.chatItemInfo?.receiverId]);
+    this.router.navigate(['chat-room', this.chatItemInfo?.nickName, this.chatItemInfo?.receiverId]);
   }
 
 }

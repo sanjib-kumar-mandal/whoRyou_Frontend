@@ -4,11 +4,11 @@
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-avatar size="small" slot="start" class="avatar-border">
-      <img alt="avatar" [src]="'https://api.dicebear.com/6.x/micah/svg?seed=rahul'" />
+      <img *ngIf="avatarUrl" alt="avatar" [src]="avatarUrl" />
     </ion-avatar>
     <ion-title>
       <div>
-        <ion-text>{{ 'Rahul' }}</ion-text>
+        <ion-text *ngIf="nickname">{{ nickname }}</ion-text>
       </div>
       <div>
         <ion-text class="small-font">{{ 'online' }}</ion-text>
@@ -48,10 +48,14 @@
         </div>
       </div>
     </ng-container>
-
+    <ion-spinner class="ion-margin-top" *ngIf="isTyping" name="dots"></ion-spinner>
   </div>
-  <div *ngIf="!messages?.length">
-    {{ 'Loading...' }}
+  <div *ngIf="!messages?.length && isLoadingChats" class="height-100 center">
+    <ion-spinner name="lines"></ion-spinner>
+    <ion-text class="medium-padding-left">{{ 'Loading chats...' }}</ion-text>
+  </div>
+  <div *ngIf="!messages?.length && !isLoadingChats" class="height-100 center">
+    <ion-text class="medium-padding-left">{{ 'Start chating' }}</ion-text>
   </div>
 </ion-content>
 
@@ -62,14 +66,14 @@
         <ion-col class="ion-align-self-center message-box-container">
           <div class="low-padding align-items-center">
             <ion-icon size="large" color="dark" name="happy-outline" (click)="showEmojiStore()"></ion-icon>
-            <textarea (focus)="onFocusMessage()" [(ngModel)]="message" placeholder="Type message..." rows="1" class="low-margin-left width-100 message-box"></textarea>
+            <textarea #messageBox (input)="autoGrow($event)" (focus)="onFocusMessage()" [(ngModel)]="message" placeholder="Type message..." rows="1" class="low-margin-left width-100 message-box"></textarea>
             <ion-icon size="large" color="dark" name="attach"></ion-icon>
           </div>
         </ion-col>
   
         <ion-col class="low-margin-left" size="auto">
-          <ion-fab-button color="theme">
-            <ion-icon name="mic"></ion-icon>
+          <ion-fab-button color="theme" [disabled]="!message" (click)="sendMessage()">
+            <ion-icon name="send"></ion-icon>
           </ion-fab-button>
         </ion-col>
       </ion-row>

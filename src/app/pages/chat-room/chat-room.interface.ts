@@ -13,8 +13,8 @@ export enum MessageTypeEnum {
 }
 
 export interface ChatInfoInterface {
-    _id: string;
-    conversationId: string;
+    _id?: string;
+    conversationId?: string;
     senderId: string;
     receiverId: string;
     message: string;

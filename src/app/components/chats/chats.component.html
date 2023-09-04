@@ -1,3 +1,12 @@
-<div class="flex-column chat-container">
-    <app-chat-item *ngFor="let chat of chats" [chatItemInfo]="chat"></app-chat-item>
+<div class="flex-column chat-container" [class.height-100]="!chats?.length">
+    <ng-container *ngIf="chats?.length">
+        <app-chat-item *ngFor="let chat of chats" [chatItemInfo]="chat"></app-chat-item>
+    </ng-container>
+    <div *ngIf="!chats?.length && isLoadingChatItems" class="height-100 center">
+        <ion-spinner name="lines"></ion-spinner>
+        <ion-text class="medium-padding-left">{{ 'Fetching conversations...' }}</ion-text>
+      </div>
+      <div *ngIf="!chats?.length && !isLoadingChatItems" class="height-100 center">
+        <ion-text class="medium-padding-left">{{ 'No conversation as of now!' }}</ion-text>
+    </div>
 </div>

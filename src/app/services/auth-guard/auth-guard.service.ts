@@ -17,7 +17,7 @@ export class AuthGuardService {
   public canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     // return this.authService.userLogStatusObservable.pipe(filter(status => status !== null), tap(status => this.logCheck(status)));
     return new Observable<boolean>(obs => {
-
+       console.log("Authguard")
        this.authService.userLogStatusObservable.pipe(filter(status => status !== null), distinctUntilChanged()).subscribe({
            next: (status) => {
               console.log("status", status)

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { filter, map, tap } from 'rxjs';
-import { ChatItemInfoInterface, MessageStatusEnum } from 'src/app/pages/chats/chats.interface';
+import { map } from 'rxjs';
+import { ChatItemInfoInterface } from 'src/app/pages/chats/chats.interface';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { SocketService } from 'src/app/services/socket/socket.service';
 
@@ -11,131 +11,15 @@ import { SocketService } from 'src/app/services/socket/socket.service';
 })
 export class ChatsComponent implements OnInit {
 
-  public chats: Array<ChatItemInfoInterface> = [
-    // {
-    //   id: '1',
-    //   nickName: 'Trijit',
-    //   avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=trijit',
-    //   lastMessage: 'This is some message!!!',
-    //   lastMessageTime: '12:25 PM',
-    //   unreadMessageCount: 3,
-    //   messageStatus: MessageStatusEnum.NOT_SEEN
-    // },
-    // {
-    //   id: '1',
-    //   nickName: 'Sourav',
-    //   avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=sourav',
-    //   lastMessage: 'This is some message!!!',
-    //   lastMessageTime: '12:25 PM',
-    //   unreadMessageCount: 0,
-    //   messageStatus: MessageStatusEnum.READ
-    // },
-    // {
-    //   id: '1',
-    //   nickName: 'Rahul',
-    //   avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=rahul',
-    //   lastMessage: 'This is some message!!!',
-    //   lastMessageTime: '12:25 PM',
-    //   unreadMessageCount: 0,
-    //   messageStatus: MessageStatusEnum.NOT_READ
-    // },
-    // {
-    //   id: '1',
-    //   nickName: 'Sanjib',
-    //   avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=sanjib',
-    //   lastMessage: 'This is some message!!!',
-    //   lastMessageTime: '12:25 PM',
-    //   unreadMessageCount: 0,
-    //   messageStatus: MessageStatusEnum.SEEN
-    // },
-    // {
-    //   id: '1',
-    //   nickName: 'Bhaskar',
-    //   avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=bhaskar',
-    //   lastMessage: 'This is some message!!!',
-    //   lastMessageTime: '12:25 PM',
-    //   unreadMessageCount: 0,
-    //   messageStatus: MessageStatusEnum.NOT_DELIVERED
-    // },
-    // {
-    //   id: '1',
-    //   nickName: 'Akash',
-    //   avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=akash',
-    //   lastMessage: 'This is some message!!!',
-    //   lastMessageTime: '12:25 PM',
-    //   unreadMessageCount: 0,
-    //   messageStatus: MessageStatusEnum.DELIVERED
-    // },
-    // {
-    //   id: '1',
-    //   nickName: 'Bipraneel',
-    //   avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=bipraneel',
-    //   lastMessage: 'This is some message!!!',
-    //   lastMessageTime: '12:25 PM',
-    //   unreadMessageCount: 0,
-    //   messageStatus: MessageStatusEnum.DELIVERED
-    // },
-    // {
-    //   id: '1',
-    //   nickName: 'Tuhin',
-    //   avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=tuhin',
-    //   lastMessage: 'This is some message!!!',
-    //   lastMessageTime: '12:25 PM',
-    //   unreadMessageCount: 0,
-    //   messageStatus: MessageStatusEnum.DELIVERED
-    // },
-    // {
-    //   id: '1',
-    //   nickName: 'Tuhin',
-    //   avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=tuhin',
-    //   lastMessage: 'This is some message!!!',
-    //   lastMessageTime: '12:25 PM',
-    //   unreadMessageCount: 0,
-    //   messageStatus: MessageStatusEnum.DELIVERED
-    // },
-    // {
-    //   id: '1',
-    //   nickName: 'Tuhin',
-    //   avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=tuhin',
-    //   lastMessage: 'This is some message!!!',
-    //   lastMessageTime: '12:25 PM',
-    //   unreadMessageCount: 0,
-    //   messageStatus: MessageStatusEnum.DELIVERED
-    // },
-    // {
-    //   id: '1',
-    //   nickName: 'Tuhin',
-    //   avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=tuhin',
-    //   lastMessage: 'This is some message!!!',
-    //   lastMessageTime: '12:25 PM',
-    //   unreadMessageCount: 0,
-    //   messageStatus: MessageStatusEnum.DELIVERED
-    // },
-    // {
-    //   id: '1',
-    //   nickName: 'Tuhin',
-    //   avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=tuhin',
-    //   lastMessage: 'This is some message!!!',
-    //   lastMessageTime: '12:25 PM',
-    //   unreadMessageCount: 0,
-    //   messageStatus: MessageStatusEnum.DELIVERED
-    // },
-    // {
-    //   id: '1',
-    //   nickName: 'Tuhin',
-    //   avatarUrl: 'https://api.dicebear.com/6.x/micah/svg?seed=tuhin',
-    //   lastMessage: 'This is some message!!!',
-    //   lastMessageTime: '12:25 PM',
-    //   unreadMessageCount: 0,
-    //   messageStatus: MessageStatusEnum.DELIVERED
-    // },
-  ];
+  private userId: string = '';
+  public chats: Array<ChatItemInfoInterface> = new Array();
+  public isLoadingChatItems!: boolean;
 
   constructor(
     private authService: AuthService,
     private readonly socketService: SocketService
   ) {
-    this.getAllConversations();
+     this.isLoadingChatItems = true;
   }
 
   ngOnInit() {
@@ -147,7 +31,9 @@ export class ChatsComponent implements OnInit {
       next: (userInfo) => {
         console.log("userInfo", userInfo)
         if(userInfo && Object.keys(userInfo).length) {
-          this.socketService.sendUserId(userInfo.id);
+         // this.socketService.sendUserId(userInfo.id);
+         this.userId = userInfo.id;
+         this.getAllConversations();
         }
       }
     })
@@ -156,29 +42,39 @@ export class ChatsComponent implements OnInit {
   public getAllConversations() {
      this.socketService.getAllConversations()
          .pipe(
-            filter(res => res !== null),
-            tap((res) => console.log("res", res)),
             map((response) => {
-                let chats: Array<ChatItemInfoInterface> = [];
-                response.forEach(conversation => {
-                  chats.push({
-                     id: conversation._id,
-                     receiverId: conversation.participants[1]._id,
-                     nickName: conversation.participants[1].nickname,
-                     avatarUrl: `https://api.dicebear.com/6.x/micah/svg?seed=${conversation.participants[1].nickname}`,
-                     lastMessage: conversation.lastMessageInfo.message,
-                     lastMessageTime: conversation.lastMessageInfo.time,
-                     messageStatus: conversation.lastMessageInfo.status,
-                     unreadMessageCount: 0
-                  });
-                });
+                if(!response?.length) {
+                  console.log('firing get convo event!')
+                  this.socketService.sendConversationGettingEvent();
+                  return null;
+                } else {
+                  let chats: Array<ChatItemInfoInterface> = new Array();
+                  let filteredConversations = response?.filter(res => res.participants[0]._id === this.userId || res.participants[1]._id === this.userId);
+                  if(filteredConversations?.length) {
+                    filteredConversations.forEach(conversation => {
+                      let receiver = conversation.participants.filter(el => el._id !== this.userId);
+  
+                      chats.push({
+                         id: conversation._id,
+                         receiverId: receiver[0]._id,
+                         nickName: receiver[0].nickname,
+                         avatarUrl: `https://api.dicebear.com/6.x/micah/svg?seed=${receiver[0].nickname}`,
+                         lastMessage: conversation.lastMessageInfo.message,
+                         lastMessageTime: conversation.lastMessageInfo.time,
+                         messageStatus: conversation.lastMessageInfo.status,
+                         unreadMessageCount: 0
+                      });
+                    });
+                  }
 
-                return chats;
+                  return chats || [];
+                } 
             })
          ).subscribe({
-             next: (response) => {
-                 console.log("response", response)
-                 this.chats = response;
+             next: (chats) => {
+              console.log("chats", chats)
+                   this.chats = chats!;
+                   this.isLoadingChatItems = false;    
              }
          })
   }

@@ -14,7 +14,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/onboarding/onboarding.module').then(m => m.OnboardingPageModule)
   },
   {
-    path: 'chat-room/:receiverId',
+    path: 'chat-room/:nickname/:receiverId',
     loadChildren: () => import('./pages/chat-room/chat-room.module').then(m => m.ChatRoomPageModule),
     canActivate: [AuthGuard]
   }

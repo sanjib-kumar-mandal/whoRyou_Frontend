@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, delay, map } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { NickNameExistanceResponseIntreface, SignUpResponseInterface, UserInfoInterface } from './onboarding.interface';
 
@@ -49,7 +49,6 @@ export class OnboardingService {
   }
 
   public isNickNameExists(nickname: string): Observable<NickNameExistanceResponseIntreface> {
-    return this.http.get<NickNameExistanceResponseIntreface>(`${this.apiBasePath}/api/v1/users/nicknameExistance/${nickname}`)
-                    .pipe(delay(3000))
+    return this.http.get<NickNameExistanceResponseIntreface>(`${this.apiBasePath}/api/v1/users/nicknameExistance/${nickname}`);
   }
 }
