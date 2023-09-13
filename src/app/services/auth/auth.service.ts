@@ -6,6 +6,9 @@ import { environment } from 'src/environments/environment';
 import { StorageService } from '../storage/storage.service';
 import { ModalController } from '@ionic/angular';
 import { LoginModalComponent } from 'src/app/components/login-modal/login-modal.component';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore/lite';
+import { UserCredential, createUserWithEmailAndPassword, getAuth, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +23,51 @@ export class AuthService {
   private userInfoObserver$ = new BehaviorSubject<UserInfoInterface>(null!);
   public userInfoObservable = this.userInfoObserver$.asObservable();
 
+  user = new BehaviorSubject<UserCredential>(null!);
+  getUser = this.user.asObservable();
+
+  app = initializeApp(environment.firebaseConfig);
+  db = getFirestore(this.app);
+  auth = getAuth(this.app);
+
   constructor(
     private http: HttpClient,
     private storageService: StorageService,
     private readonly modalController: ModalController
   ) { }
+
+  async firebaseSignIn(email:string,password:string){
+    try{
+      const user = await signInWithEmailAndPassword(this.auth, email, password);
+      this.user.next(user);
+    }catch(e:any){
+      if(e.code){
+        alert(e.message)
+      }
+    }
+  }
+
+  async firebaseSignUp(email:string,password:string){
+    try{
+      const user = await signInWithEmailAndPassword(this.auth, email, password);
+      await sendEmailVerification(user.user);
+      this.user.next(user);
+    }catch(e:any){
+      if(e.code){
+        alert(e.message)
+      }
+    }
+  }
+
+  async firebaseForgotPassword(email:string){
+    try{
+      const user = await sendPasswordResetEmail(this.auth, email);
+    }catch(e:any){
+      if(e.code){
+        alert(e.message)
+      }
+    }
+  }
 
   private signUp(signUpPayload: SignUpPayloadInterface): Observable<SignUpResponseInterface> {
     return this.http.post<SignUpResponseInterface>(`${this.apiBasePath}/api/v1/auth/signup`, {

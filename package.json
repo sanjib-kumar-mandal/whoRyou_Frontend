@@ -30,7 +30,7 @@
     "@ctrl/ngx-emoji-mart": "^9.2.0",
     "@ionic/angular": "^7.0.0",
     "@microsoft/fetch-event-source": "^2.0.1",
-    "firebase": "^9.16.0",
+    "firebase": "^9.23.0",
     "ionicons": "^7.0.0",
     "lottie-web": "^5.12.2",
     "ngx-lottie": "^10.0.0",
