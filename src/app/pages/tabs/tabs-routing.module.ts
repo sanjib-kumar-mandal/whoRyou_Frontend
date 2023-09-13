@@ -15,12 +15,12 @@ const routes: Routes = [
       },
       {
         path: 'search',
-        loadChildren: () => import('../find-users/find-users.module').then(m => m.FindUsersPageModule),
+        loadChildren: () => import('../tab3/find-users.module').then(m => m.FindUsersPageModule),
         canActivate: [AuthGuard]
       },
       {
         path: 'chatfolio',
-        loadChildren: () => import('../find-users/find-users.module').then(m => m.FindUsersPageModule),
+        loadChildren: () => import('../tab3/find-users.module').then(m => m.FindUsersPageModule),
         canActivate: [AuthGuard]
       },
       {

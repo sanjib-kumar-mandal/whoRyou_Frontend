@@ -48,18 +48,18 @@ export class NameGeneratorComponent  implements OnInit {
           } else {
             this.loaderService.show({ message: 'Checking for availablity...' });
 
-            this.onBoardingService.isNickNameExists(this.nickname).subscribe({
-              next: (response) => {
-                this.loaderService.dismiss();
-                if(response?.status) {
-                  this.errorMessage = 'Nick name already exists. Please try another!'
-                  resolve(false);
-                } else {
-                  this.errorMessage = '';
-                  resolve(true);
-                }
-              }
-            })
+            // this.onBoardingService.isNickNameExists(this.nickname).subscribe({
+            //   next: (response) => {
+            //     this.loaderService.dismiss();
+            //     if(response?.status) {
+            //       this.errorMessage = 'Nick name already exists. Please try another!'
+            //       resolve(false);
+            //     } else {
+            //       this.errorMessage = '';
+            //       resolve(true);
+            //     }
+            //   }
+            // })
             
           }          
         }

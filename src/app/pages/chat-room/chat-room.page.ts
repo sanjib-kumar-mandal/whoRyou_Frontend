@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ChatRoomService } from './chat-room.service';
 import { Subscription, filter, map } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { SocketService } from 'src/app/services/socket/socket.service';
+// import { SocketService } from 'src/app/services/socket/socket.service';
 import { MessageStatusEnum } from '../chats/chats.interface';
 import { UserInfoInterface } from '../onboarding/onboarding.interface';
 
@@ -35,7 +35,7 @@ export class ChatRoomPage implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly chatRoomService: ChatRoomService,
-    private readonly socketService: SocketService,
+    // private readonly socketService: SocketService,
     private readonly authService: AuthService,
     private readonly zone: NgZone
   ) { 
@@ -105,19 +105,19 @@ export class ChatRoomPage implements OnInit, AfterViewInit, OnDestroy {
       //     time: '12:25 PM'
       //   }
       // )
-
-      this.chatSubscription = this.socketService.getChat().pipe(filter(messageInfo => messageInfo !== null)).subscribe({
-        next: messageInfo => {
-            console.log("Received msg", messageInfo);
-            this.messages.push({
-              id: messageInfo._id!,
-              message: messageInfo.message,
-              time: messageInfo.time,
-              type: messageInfo.senderId === this.senderId ? MessageTypeEnum.FROM_USER : MessageTypeEnum.FROM_SENDER
-            });
-            this.scrollToBottom(50);
-        }
-      });
+      console.log("hello")
+      // this.chatSubscription = this.socketService.getChat().pipe(filter(messageInfo => messageInfo !== null)).subscribe({
+      //   next: messageInfo => {
+      //       console.log("Received msg", messageInfo);
+      //       this.messages.push({
+      //         id: messageInfo._id!,
+      //         message: messageInfo.message,
+      //         time: messageInfo.time,
+      //         type: messageInfo.senderId === this.senderId ? MessageTypeEnum.FROM_USER : MessageTypeEnum.FROM_SENDER
+      //       });
+      //       this.scrollToBottom(50);
+      //   }
+      // });
 
       Promise.all([
         this.getReceiverIdAndName(),
@@ -132,14 +132,14 @@ export class ChatRoomPage implements OnInit, AfterViewInit, OnDestroy {
            this.avatarUrl = `https://api.dicebear.com/6.x/micah/svg?seed=${nickname}`;
            this.getReceiverInfo(receiverId);
            this.getChats({ receiverId, userId });
-           this.socketService.placeTypingEventListener()
-                             .pipe(filter(payload => payload !== null))
-                             .subscribe({
-                               next: payload => {
-                                    this.isTyping = payload?.senderId === this.receiverId && payload?.receiverId === this.senderId;
-                                    this.isTyping && this.scrollToBottom(50);
-                               }
-                             })
+          //  this.socketService.placeTypingEventListener()
+          //                    .pipe(filter(payload => payload !== null))
+          //                    .subscribe({
+          //                      next: payload => {
+          //                           this.isTyping = payload?.senderId === this.receiverId && payload?.receiverId === this.senderId;
+          //                           this.isTyping && this.scrollToBottom(50);
+          //                      }
+          //                    })
         });
   }
 
@@ -249,21 +249,21 @@ export class ChatRoomPage implements OnInit, AfterViewInit, OnDestroy {
      element.style.height = "5px";
      element.style.height = (element.scrollHeight) + "px";
      if(event.target.value) {
-       this.socketService.sendTypingEvent(this.senderId, this.receiverId);
+      // this.socketService.sendTypingEvent(this.senderId, this.receiverId);
      } else {
-       this.socketService.sendTyingOffEvent();
+      // this.socketService.sendTyingOffEvent();
      }
   }
 
   public sendMessage() {
-     this.socketService.sendChat({
-        message: this.message,
-        status: MessageStatusEnum.DELIVERED,
-        time: new Date().toISOString(),
-        receiverId: this.receiverId,
-        senderId: this.senderId
-     });
-     this.socketService.sendTyingOffEvent();
+    //  this.socketService.sendChat({
+    //     message: this.message,
+    //     status: MessageStatusEnum.DELIVERED,
+    //     time: new Date().toISOString(),
+    //     receiverId: this.receiverId,
+    //     senderId: this.senderId
+    //  });
+    // this.socketService.sendTyingOffEvent();
      this.scrollToBottom(50);
      this.message = '';
   }
@@ -271,8 +271,8 @@ export class ChatRoomPage implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
       this.chatSubscription?.unsubscribe();
-      this.socketService.removeChatListener();
-      this.socketService.removeTypingStatusListener();
-      this.socketService.sendTyingOffEvent();
+      // this.socketService.removeChatListener();
+      // this.socketService.removeTypingStatusListener();
+      // this.socketService.sendTyingOffEvent();
   }
 }

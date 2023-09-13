@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 import { ChatItemInfoInterface } from 'src/app/pages/chats/chats.interface';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { SocketService } from 'src/app/services/socket/socket.service';
+// import { SocketService } from 'src/app/services/socket/socket.service';
 
 @Component({
   selector: 'app-chats-component',
@@ -17,7 +17,7 @@ export class ChatsComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private readonly socketService: SocketService
+    // private readonly socketService: SocketService
   ) {
      this.isLoadingChatItems = true;
   }
@@ -40,43 +40,43 @@ export class ChatsComponent implements OnInit {
   }
 
   public getAllConversations() {
-     this.socketService.getAllConversations()
-         .pipe(
-            map((response) => {
-                if(!response?.length) {
-                  console.log('firing get convo event!')
-                  this.socketService.sendConversationGettingEvent();
-                  return null;
-                } else {
-                  let chats: Array<ChatItemInfoInterface> = new Array();
-                  let filteredConversations = response?.filter(res => res.participants[0]._id === this.userId || res.participants[1]._id === this.userId);
-                  if(filteredConversations?.length) {
-                    filteredConversations.forEach(conversation => {
-                      let receiver = conversation.participants.filter(el => el._id !== this.userId);
+    //  this.socketService.getAllConversations()
+    //      .pipe(
+    //         map((response) => {
+    //             if(!response?.length) {
+    //               console.log('firing get convo event!')
+    //               this.socketService.sendConversationGettingEvent();
+    //               return null;
+    //             } else {
+    //               let chats: Array<ChatItemInfoInterface> = new Array();
+    //               let filteredConversations = response?.filter(res => res.participants[0]._id === this.userId || res.participants[1]._id === this.userId);
+    //               if(filteredConversations?.length) {
+    //                 filteredConversations.forEach(conversation => {
+    //                   let receiver = conversation.participants.filter(el => el._id !== this.userId);
   
-                      chats.push({
-                         id: conversation._id,
-                         receiverId: receiver[0]._id,
-                         nickName: receiver[0].nickname,
-                         avatarUrl: `https://api.dicebear.com/6.x/micah/svg?seed=${receiver[0].nickname}`,
-                         lastMessage: conversation.lastMessageInfo.message,
-                         lastMessageTime: conversation.lastMessageInfo.time,
-                         messageStatus: conversation.lastMessageInfo.status,
-                         unreadMessageCount: 0
-                      });
-                    });
-                  }
+    //                   chats.push({
+    //                      id: conversation._id,
+    //                      receiverId: receiver[0]._id,
+    //                      nickName: receiver[0].nickname,
+    //                      avatarUrl: `https://api.dicebear.com/6.x/micah/svg?seed=${receiver[0].nickname}`,
+    //                      lastMessage: conversation.lastMessageInfo.message,
+    //                      lastMessageTime: conversation.lastMessageInfo.time,
+    //                      messageStatus: conversation.lastMessageInfo.status,
+    //                      unreadMessageCount: 0
+    //                   });
+    //                 });
+    //               }
 
-                  return chats || [];
-                } 
-            })
-         ).subscribe({
-             next: (chats) => {
-              console.log("chats", chats)
-                   this.chats = chats!;
-                   this.isLoadingChatItems = false;    
-             }
-         })
+    //               return chats || [];
+    //             } 
+    //         })
+    //      ).subscribe({
+    //          next: (chats) => {
+    //           console.log("chats", chats)
+    //                this.chats = chats!;
+    //                this.isLoadingChatItems = false;    
+    //          }
+    //      })
   }
 
 }
